@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 01 - Todo Matrix</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="container">
+        <aside class="left-col">
+            <div class="profile-card">
+                <img src="images/avatar.jpg" alt="Avatar" class="avatar-circle">
+                <h2>Họ và Tên: Lâm Minh Nhựt</h2>
+                <p>MSSV: <span id="display-mssv">231A010214</span></p>
+                </div>
+            
+            <div class="input-section">
+                <h3>Thêm công việc mới</h3>
+                <input type="text" id="taskName" placeholder="Nhập tên công việc...">
+                
+                <label>Độ ưu tiên:</label>
+                <select id="taskPriority">
+                    <option value="1">1. Quan trọng & Khẩn cấp</option>
+                    <option value="2">2. Quan trọng - Không khẩn cấp</option>
+                    <option value="3">3. Không quan trọng - Khẩn cấp</option>
+                    <option value="4">4. Không quan trọng - Không khẩn cấp</option>
+                </select>
+                
+                <button onclick="addTask()">Thêm việc</button>
+                <br><br>
+                <a href="index.html">Quay lại trang chủ</a>
+            </div>
+        </aside>
+
+        <main class="right-col">
+            <div class="matrix-grid">
+                <div class="matrix-cell urgent-important">
+                    <h3>1. Quan trọng & Khẩn cấp</h3>
+                    <ul id="list-1" class="task-list"></ul>
+                </div>
+
+                <div class="matrix-cell not-urgent-important">
+                    <h3>2. Quan trọng & Không khẩn cấp</h3>
+                    <ul id="list-2" class="task-list"></ul>
+                </div>
+
+                <div class="matrix-cell urgent-not-important">
+                    <h3>3. Không quan trọng & Khẩn cấp</h3>
+                    <ul id="list-3" class="task-list"></ul>
+                </div>
+
+                <div class="matrix-cell not-urgent-not-important">
+                    <h3>4. Không quan trọng & Không khẩn cấp</h3>
+                    <ul id="list-4" class="task-list"></ul>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
