@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 02 - Game Đoán Số</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="game-body">
+
+    <div class="game-container">
+        <a href="index.html" class="back-link">⬅ Quay lại Trang chủ</a>
+
+        <h1>🎮 Game Đoán Số Bí Ẩn</h1>
+        <p>Máy tính đã chọn một số từ <strong>1 đến 100</strong>.</p>
+        <p>Bạn hãy thử đoán xem đó là số mấy nhé!</p>
+
+        <div class="game-input-area">
+            <input type="number" id="userGuess" placeholder="Nhập số của bạn..." min="1" max="100">
+            <button onclick="checkGuess()">Đoán ngay</button>
+        </div>
+
+        <div class="result-area">
+            <p id="message">Hãy nhập số và bấm đoán...</p>
+            <p>Số lần thử: <span id="attemptCount">0</span></p>
+        </div>
+
+        <button id="restartBtn" onclick="resetGame()" style="display: none; background-color: #007bff;">Chơi lại game mới</button>
+    </div>
+
+    <script>
+        // 1. Khởi tạo biến
+        let randomNumber = Math.floor(Math.random() * 100) + 1;
+        let attempts = 0;
+        
+        const messageEl = document.getElementById('message');
+        const countEl = document.getElementById('attemptCount');
+        const inputEl = document.getElementById('userGuess');
+        const restartBtn = document.getElementById('restartBtn');
+
+        // Hàm kiểm tra số đoán
+        function checkGuess() {
+            const userValue = parseInt(inputEl.value);
+
+            // Kiểm tra tính hợp lệ
+            if (isNaN(userValue) || userValue < 1 || userValue > 100) {
+                messageEl.textContent = "⚠️ Vui lòng nhập số hợp lệ từ 1 đến 100!";
+                messageEl.className = "wrong";
+                return;
+            }
+
+            attempts++;
+            countEl.textContent = attempts;
+
+            // So sánh
+            if (userValue === randomNumber) {
+                // ĐÚNG
+                messageEl.textContent = `🎉 CHÚC MỪNG! Bạn đoán đúng số ${randomNumber} rồi!`;
+                messageEl.className = "correct";
+                endGame();
+            } else if (userValue < randomNumber) {
+                // THẤP
+                messageEl.textContent = "📉 Thấp quá! Thử số lớn hơn xem.";
+                messageEl.className = "wrong";
+                inputEl.value = "";
+                inputEl.focus();
+            } else {
+                // CAO
+                messageEl.textContent = "📈 Cao quá! Thử số nhỏ hơn xem.";
+                messageEl.className = "wrong";
+                inputEl.value = "";
+                inputEl.focus();
+            }
+        }
+
+        // Hàm kết thúc game
+        function endGame() {
+            inputEl.disabled = true;
+            restartBtn.style.display = 'inline-block';
+        }
+
+        // Hàm chơi lại
+        function resetGame() {
+            attempts = 0;
+            countEl.textContent = attempts;
+            randomNumber = Math.floor(Math.random() * 100) + 1;
+            
+            messageEl.textContent = "Hãy nhập số và bấm đoán...";
+            messageEl.className = "";
+            
+            inputEl.disabled = false;
+            inputEl.value = "";
+            restartBtn.style.display = 'none';
+            inputEl.focus();
+        }
+
+        // Cho phép ấn Enter để đoán
+        inputEl.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                checkGuess();
+            }
+        });
+    </script>
+</body>
+</html>
